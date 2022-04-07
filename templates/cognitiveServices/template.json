@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accounts_clc3CognitiveServices_name": {
+            "defaultValue": "clc3CognitiveServices",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[parameters('accounts_clc3CognitiveServices_name')]",
+            "location": "westeurope",
+            "sku": {
+                "name": "S0"
+            },
+            "kind": "CognitiveServices",
+            "properties": {
+                "apiProperties": {
+                    "statisticsEnabled": false
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+
+#!/bin/bash
+
+#define names for services
+rgName="rg_clc3_project"
+functionsName="clc3Functions"
+functionsPlanName="clc3functions"
+storageName="clc3staticwebstorage"
+cognitiveServicesName="clc3CognitiveServices"
+cosmoDBName="clc3-cosmodb"
+
+#path to templates
+rgPath="templates/resourceGroup/template.json"
+functionsPath="templates/functions/template.json"
+functionsPlanPath="templates/functionsPlan/template.json"
+storagePath="templates/storage/template.json"
+cognitiveServicesPath="templates/cognitiveServices/template.json"
+cosmoDBNamePath="templates/cosmoDB/template.json"
+
+#create deployements
+az deployment create \
+    -name $rgName
+    --location westeurope \
+    --template-file $rgPath
+
+az group deployment create \
+    --name $functionsName
+    --resource-group $rgName \
+    --template-file $functionsPath
+
+az group deployment create \
+    --name $functionsPlanName
+    --resource-group $rgName \
+    --template-file $functionsPlanPath
+
+az group deployment create \
+    --name $storageName
+    --resource-group $rgName \
+    --template-file $storagePath
+
+az group deployment create \
+    --name $cognitiveServicesName
+    --resource-group $rgName \
+    --template-file $cognitiveServicesPath
+
+az group deployment create \
+    --name $cosmoDBName
+    --resource-group $rgName \
+    --template-file $cosmoDBNamePath

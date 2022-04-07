@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-detail{
+    margin: 10px;
+    padding: 10px;
+    background-color:rgb(228, 228, 228);
+}
+
+.upload-container{
+    min-height: 200px;
+}

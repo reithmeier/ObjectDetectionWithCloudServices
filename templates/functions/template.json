@@ -1,0 +1,404 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_clc3Functions_name": {
+            "defaultValue": "clc3Functions",
+            "type": "String"
+        },
+        "serverfarms_clc3FunctionsPlan_externalid": {
+            "defaultValue": "/subscriptions/e38f4784-b563-4c93-9fad-6bf4d4fa0643/resourceGroups/rg_clc3_project/providers/Microsoft.Web/serverfarms/clc3FunctionsPlan",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_clc3Functions_name')]",
+            "location": "West Europe",
+            "tags": {
+                "hidden-related:/subscriptions/e38f4784-b563-4c93-9fad-6bf4d4fa0643/resourceGroups/rg_clc3_project/providers/Microsoft.Web/serverfarms/clc3FunctionsPlan": "empty"
+            },
+            "kind": "functionapp",
+            "identity": {
+                "principalId": "e1bee60f-71f8-4797-9987-382726000bd9",
+                "tenantId": "654c69dd-e8e3-4d46-b1f1-4864755fa20e",
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "clc3functions.azurewebsites.net",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "clc3functions.scm.azurewebsites.net",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[parameters('serverfarms_clc3FunctionsPlan_externalid')]",
+                "reserved": false,
+                "isXenon": false,
+                "hyperV": false,
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 1536,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": true,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/web')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "tags": {
+                "hidden-related:/subscriptions/e38f4784-b563-4c93-9fad-6bf4d4fa0643/resourceGroups/rg_clc3_project/providers/Microsoft.Web/serverfarms/clc3FunctionsPlan": "empty"
+            },
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "phpVersion": "5.6",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2019",
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$clc3Functions",
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": true,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": true
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "cors": {
+                    "allowedOrigins": [
+                        "https://functions.azure.com",
+                        "https://functions-staging.azure.com",
+                        "https://functions-next.azure.com"
+                    ],
+                    "supportCredentials": false
+                },
+                "localMySqlEnabled": false,
+                "managedServiceIdentityId": 13627,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/17024c2487de4ae8ba055c285e2f49fa')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-01-18T14:12:48.3121724Z",
+                "end_time": "2020-01-18T14:12:50.0657367Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/451bcbdea1b74fe1909311dd99ad30de')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-01-21T08:15:48.37306Z",
+                "end_time": "2020-01-21T08:15:49.6077142Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/4effd0caca744993824067bbbc662171')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-01-18T15:15:57.2422089Z",
+                "end_time": "2020-01-18T15:15:58.2735013Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/6a13fe2f0f374c5d8f158f3f205d113a')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-01-21T11:36:48.3260516Z",
+                "end_time": "2020-01-21T11:36:49.4354889Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/6d036aa5a7c047dbaa58b2aff3989344')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-01-21T11:54:34.8790019Z",
+                "end_time": "2020-01-21T11:54:35.925971Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/8112f48636a2496e939924be532f391f')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-01-21T13:12:30.4479063Z",
+                "end_time": "2020-01-21T13:12:31.5573362Z",
+                "active": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/868ae8b564b049069a6763d071e9baf2')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-01-21T08:58:19.7383391Z",
+                "end_time": "2020-01-21T08:58:20.7365975Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/da8f5e3c8ac049e28be1d94e4b06ec8a')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-01-19T13:00:25.0344151Z",
+                "end_time": "2020-01-19T13:00:27.6019092Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/AnalyzeAndUploadImage')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/AnalyzeAndUploadImage/",
+                "script_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/bin/FunctionApp.dll",
+                "config_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/AnalyzeAndUploadImage/function.json",
+                "href": "https://clc3functions.azurewebsites.net/admin/functions/AnalyzeAndUploadImage",
+                "config": {}
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/AnalyzeImage')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/AnalyzeImage/",
+                "script_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/bin/FunctionApp.dll",
+                "config_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/AnalyzeImage/function.json",
+                "href": "https://clc3functions.azurewebsites.net/admin/functions/AnalyzeImage",
+                "config": {}
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/GetImageById')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/GetImageById/",
+                "script_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/bin/FunctionApp.dll",
+                "config_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/GetImageById/function.json",
+                "href": "https://clc3functions.azurewebsites.net/admin/functions/GetImageById",
+                "config": {}
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/GetImages')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/GetImages/",
+                "script_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/bin/FunctionApp.dll",
+                "config_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/GetImages/function.json",
+                "href": "https://clc3functions.azurewebsites.net/admin/functions/GetImages",
+                "config": {}
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/Hello')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/Hello/",
+                "script_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/bin/FunctionApp.dll",
+                "config_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/Hello/function.json",
+                "href": "https://clc3functions.azurewebsites.net/admin/functions/Hello",
+                "config": {}
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/InsertImage')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/InsertImage/",
+                "script_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/bin/FunctionApp.dll",
+                "config_href": "https://clc3functions.azurewebsites.net/admin/vfs/site/wwwroot/InsertImage/function.json",
+                "href": "https://clc3functions.azurewebsites.net/admin/functions/InsertImage",
+                "config": {}
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_clc3Functions_name'), '/', parameters('sites_clc3Functions_name'), '.azurewebsites.net')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_clc3Functions_name'))]"
+            ],
+            "properties": {
+                "siteName": "clc3Functions",
+                "hostNameType": "Verified"
+            }
+        }
+    ]
+}

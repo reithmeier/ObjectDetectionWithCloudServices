@@ -1,0 +1,40 @@
+<div *ngIf="image" class="image-detail">
+    <div class="col-sm-8">
+        <h6>{{image.name}}</h6>
+    </div>
+
+    <svg #svgImage xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="1000"
+        height="300"
+        viewBox="0 0 1000 300"
+        preserveAspectRatio="xMinYMin"
+    >
+        <image attr.xlink:href="data:{{image.type}};base64,{{image.imageData}}" y="0" x="0"/>
+
+        <rect *ngFor="let detectedObject of image.analysisResults" attr.x="{{detectedObject.x}}"
+            attr.y="{{detectedObject.y}}" attr.width="{{detectedObject.w}}" attr.height="{{detectedObject.h}}"
+            style="fill:none;stroke-width:1;stroke:rgb(255,0,0)"></rect>
+
+        <text *ngFor="let detectedObject of image.analysisResults" attr.x="{{detectedObject.x+5}}"
+            attr.y="{{detectedObject.y+20}}" fill="red">
+            [{{detectedObject.objectProperty}} {{detectedObject.confidence}}]
+        </text>
+    </svg>
+
+    <table>
+        <tr>
+            <th>Class</th>
+            <th>Confidence</th>
+            <th>BoundingBox (x,y,w,h)</th>
+        </tr>
+        <tr *ngFor="let detectedObject of image.analysisResults">
+            <td>{{detectedObject.objectProperty}}</td>
+            <td>{{detectedObject.confidence}}</td>
+            <td>({{detectedObject.x}}, {{detectedObject.y}}, {{detectedObject.w}}, {{detectedObject.h}})</td>
+
+        </tr>
+
+    </table>
+    <!--<canvas #canvas ></canvas>-->
+
+</div>

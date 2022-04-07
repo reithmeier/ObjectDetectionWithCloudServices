@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <button class="input-group-text btn" (click)="onUpload()" [disabled]="selectedFile==null || selectedFile.name==''">Upload</button>
+    </div>
+    <div class="custom-file">
+      <input (change)="onFileChanged($event)" type="file" class="custom-file-input">
+      <label class="custom-file-label  btn" for="inputGroupFile01">{{labelText}}</label>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="alert alert-success alert-dismissible" [style.display]="successVisibility">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Image uploaded <strong>successfully!</strong> 
+    Elapsed time: {{elapsedTime}} seconds.
+  </div>
+
+  <div class="alert alert-info alert-dismissible" [style.display]="infoVisibility">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Upload started.
+  </div>
+
+  <div class="alert alert-info alert-dismissible" [style.display]="info2Visibility">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    File selected : {{fileName}}.
+  </div>
+
+
+  <div class="alert alert-danger alert-dismissible" [style.display]="errorVisibility">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong> Upload unsuccessfull.
+  </div>
+</div>
+
+<div class="container image-container">
+  <div>
+    <image-detail [image]="resultImage"></image-detail>
+  </div>
+</div>
