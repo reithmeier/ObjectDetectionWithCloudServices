@@ -1,5 +1,9 @@
 # Object Detection using Azure Cognitive Services
 
+## Disclaimer
+
+This is a student project for the cloud computing course of the University of Applied Sciences Upper Austria.
+
 ## Requirements
 * .NET Core 2.2 SDK
 * Azure CLI
